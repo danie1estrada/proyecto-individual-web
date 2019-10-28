@@ -34,8 +34,8 @@
             </thead>
             <tbody>
                 <?php 
-                    require('../bd/Conexion.php');
-                    require('../configuracion/configuracion.php');
+                    require_once('../bd/Conexion.php');
+                    require_once('../configuracion/configuracion.php');
                     use  BD\Conexion;
                     $conexion = Conexion::obtenerConexion();
                     $param = isset($_GET['param']) ? $_GET['param'] : null;

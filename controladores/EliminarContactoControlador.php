@@ -1,6 +1,6 @@
 <?php
-require('../bd/Conexion.php');
-require('../configuracion/configuracion.php');
+require_once('../bd/Conexion.php');
+require_once('../configuracion/configuracion.php');
 
 use BD\Conexion;
 $datosContacto = [];
