@@ -15,11 +15,6 @@
     $user_controller = new UserController();
     $user = $user_controller->getUser($_SESSION['login']);
 
-   if ($user['role'] == 'user') {
-        header('Location: '.URL.'/views/index.php?success=false&message=No tiene permiso para realizar esa acción');
-        die();
-    }
-
     $id = isset($_GET['id']) ? $_GET['id'] : null;
     if (!$id) {
         header('Location: '.URL.'/views');
@@ -36,14 +31,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Editar</title>
+    <title>Ver</title>
     <link rel="stylesheet" href="../assets/styles/bootstrap.min.css">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="./index.php">Editar historial médico</a>
+            <a class="navbar-brand" href="./index.php">Ver historial médico</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -72,75 +67,74 @@
 
     <div class="container">
         <br>
-        <form action="../controllers/medical-record-edit.controller.php" method="post">
-            <input type="hidden" name="id" value="<?php echo $record['id']; ?>">
+        <form>
             <div class="form-row">
                 <div class="form-group col-8">
                     <label for="">Nombre:</label>
-                    <input type="text" name="full_name" placeholder="Nombre" class="form-control" value="<?php echo $record['full_name']; ?>" require_onced>
+                    <input type="text" name="full_name" placeholder="Nombre" class="form-control" value="<?php echo $record['full_name']; ?>" disabled>
                 </div>
                 <div class="form-group col-2">
                     <label for="">Género:</label>
-                    <select name="gender" class="form-control">
+                    <select name="gender" class="form-control" disabled>
                         <option value="m" <?php if ($record['gender'] == 'm') echo 'selected'; ?>>Masculino</option>
                         <option value="f" <?php if ($record['gender'] == 'f') echo 'selected'; ?>>Femenino</option>
                     </select>
                 </div>
                 <div class="form-group col-2">
                     <label for="">Edad:</label>
-                    <input type="number" name="age" placeholder="Edad" class="form-control" minlength="1" maxlength="2" value="<?php echo $record['age']; ?>" require_onced>
+                    <input type="number" name="age" placeholder="Edad" class="form-control" minlength="1" maxlength="2" value="<?php echo $record['age']; ?>" disabled>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-4">
                     <label for="">Fecha de nacimiento:</label>
-                    <input type="date" name="date_of_birth" placeholder="Fecha de nacimiento" class="form-control" value="<?php echo $record['date_of_birth']; ?>" require_onced>
+                    <input type="date" name="date_of_birth" placeholder="Fecha de nacimiento" class="form-control" value="<?php echo $record['date_of_birth']; ?>" disabled>
                 </div>
                 <div class="form-group col-4">
                     <label for="">Ocupación:</label>
-                    <input type="text" name="occupation" placeholder="Ocupación" class="form-control" value="<?php echo $record['occupation']; ?>" require_onced>
+                    <input type="text" name="occupation" placeholder="Ocupación" class="form-control" value="<?php echo $record['occupation']; ?>" disabled>
                 </div>
                 <div class="form-group col-4">
                     <label for="">Localidad:</label>
-                    <input type="text" name="location" placeholder="Localidad" class="form-control" value="<?php echo $record['location']; ?>" require_onced>
+                    <input type="text" name="location" placeholder="Localidad" class="form-control" value="<?php echo $record['location']; ?>" disabled>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-6">
                     <label for="">Nacionalidad:</label>
-                    <input type="text" name="nationality" placeholder="Nacionalidad" class="form-control" value="<?php echo $record['nationality']; ?>" require_onced>
+                    <input type="text" name="nationality" placeholder="Nacionalidad" class="form-control" value="<?php echo $record['nationality']; ?>" disabled>
                 </div>
                 <div class="form-group col-3">
                     <label for="">Religión:</label>
-                    <input type="text" name="religion" placeholder="Religión" class="form-control" value="<?php echo $record['religion']; ?>" require_onced>
+                    <input type="text" name="religion" placeholder="Religión" class="form-control" value="<?php echo $record['religion']; ?>" disabled>
                 </div>
                 <div class="form-group col-3">
                     <label for="">Teléfono:</label>
-                    <input type="number" name="phone" placeholder="Teléfono" class="form-control" minlength="10" value="<?php echo $record['phone']; ?>" maxlength="10" require_onced>
+                    <input type="number" name="phone" placeholder="Teléfono" class="form-control" minlength="10" value="<?php echo $record['phone']; ?>" maxlength="10" disabled>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-4">
                     <label for="">Domicilo:</label>
-                    <input type="text" name="address" placeholder="Domicilio" class="form-control" value="<?php echo $record['address']; ?>" require_onced>
+                    <input type="text" name="address" placeholder="Domicilio" class="form-control" value="<?php echo $record['address']; ?>" disabled>
                 </div>
                 <div class="form-group col-4">
                     <label for="">Email:</label>
-                    <input type="email" name="email" placeholder="Email" class="form-control" value="<?php echo $record['email']; ?>" require_onced>
+                    <input type="email" name="email" placeholder="Email" class="form-control" value="<?php echo $record['email']; ?>" disabled>
                 </div>
                 <div class="form-group col-4">
                     <label for="">Teléfono de emergencia:</label>
-                    <input type="number" name="emergency_phone" placeholder="Teléfono de emergencia" class="form-control" minlength="10" maxlength="10" value="<?php echo $record['emergency_phone']; ?>" require_onced>
+                    <input type="number" name="emergency_phone" placeholder="Teléfono de emergencia" class="form-control" minlength="10" maxlength="10" value="<?php echo $record['emergency_phone']; ?>" disabled>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-12">
                     <label for="">Contacto de emergencia:</label>
-                    <input type="text" name="emergency_contact" placeholder="Contacto de emergencia" class="form-control" value="<?php echo $record['emergency_contact']; ?>" require_onced>
+                    <input type="text" name="emergency_contact" placeholder="Contacto de emergencia" class="form-control" value="<?php echo $record['emergency_contact']; ?>" disabled>
                 </div>
             </div>
             
@@ -162,7 +156,6 @@
             }
             ?>
 
-            <input type="submit" value="Guardar" class="btn btn-info px-4">
             <a href="./index.php" class="btn btn-default">Regresar</a>
         </form>
 

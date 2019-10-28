@@ -88,7 +88,11 @@
                 <th>Email</th>
                 <th>Teléfono</th>
                 <th>Ocupación</th>
-                <th colspan="2"></th>
+                <?php
+                if ($user['role'] == 'administrator') {
+                    echo '<th colspan="2"></th>';
+                }
+                ?>
             </thead>
             <tbody>
                 <?php
@@ -99,19 +103,21 @@
                 $params = isset($_GET['params']) ? $_GET['params'] : null;
                 $stmt = $controller->getMedicalRecords($params);
                 while($row = $stmt->fetch()) {
-                    echo
-                    '<tr>
-                        <td>'.$row['full_name'].'</td>
+                    echo '<tr>
+                        <td><a href="./medical-record.php?id='.$row['id'].'">'.$row['full_name'].'</a></td>
                         <td>'.$row['email'].'</td>
                         <td>'.$row['phone'].'</td>
-                        <td>'.$row['occupation'].'</td>
-                        <td class="justify-content-center">
-                            <a href="./medical-record-edit.php?id='.$row['id'].'" target="_blank" class="btn btn-warning btn-sm btn-block">Editar</a>
-                        </td>
-                        <td class="justify-content-center">
-                            <a href="../controllers/medical-record-delete.controller.php?id='.$row['id'].'" class="btn btn-danger btn-sm btn-block">Eliminar</a>
-                        </td>
-                    </tr>';
+                        <td>'.$row['occupation'].'</td>';
+
+                        if ($user['role'] == 'administrator') {
+                            echo '<td class="justify-content-center">
+                                <a href="./medical-record-edit.php?id='.$row['id'].'" target="_blank" class="btn btn-warning btn-sm btn-block">Editar</a>
+                            </td>
+                            <td class="justify-content-center">
+                                <a href="../controllers/medical-record-delete.controller.php?id='.$row['id'].'" class="btn btn-danger btn-sm btn-block">Eliminar</a>
+                            </td>';
+                        }
+                    echo '</tr>';
                 }
                 ?>
             </tbody>
